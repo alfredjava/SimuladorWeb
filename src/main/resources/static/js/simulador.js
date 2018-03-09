@@ -1,16 +1,23 @@
 $( document ).ready(function() {
     
 	$('#fecha').datepicker({
-		dateFormat: 'mm/dd/yyyy',
-	    minDate: 0,
-	    monthNames: [ "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre" ]
-	});
-	 $("#fecha").datepicker("option", "minDate", new Date(2018, 1 - 1, 1));
+		format: 'mm/dd/yyyy',
+		minViewMode: '09/03/2018'
+	   	});
+	 $("#fecha").datepicker("option", "minDate", new Date());
 	
 	$('#calcular').click(function(){	
 		console.log("calcular"); 
 		table.ajax.reload();	 
 	});
+	$('#limpiar').click(function(){	
+		console.log("limpiar"); 
+		$('#importe').val("");
+        $('#plazo').val("");
+        $('#tasa').val("");
+        $('#fecha').val("");	 
+	});
+	
 	
 	var table= $('#tblcronograma').DataTable( {
     	"bJQueryUI":true,
