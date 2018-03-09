@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     
 	$('#fecha').datepicker({
-		format: 'mm/dd/yyyy',
+		format: 'dd/mm/yyyy',
 		minViewMode: '09/03/2018'
 	   	});
 	 $("#fecha").datepicker("option", "minDate", new Date());
@@ -45,9 +45,9 @@ $( document ).ready(function() {
             { "data": "fecha" },
             { "data": "interes", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },
             { "data": "amortizacion", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },
-            { "data": "totalAmortizado", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },
-            { "data": "cuotaPago", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },
-            { "data": "capitalPendiente", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) }            
+            { "data": "totalAmortizado", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },            
+            { "data": "capitalPendiente", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) },
+            { "data": "cuotaPago", render: $.fn.dataTable.render.number( ',', '.', 2, 'S/.' ) }
         ],
         "select": true
     } );
