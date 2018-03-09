@@ -64,7 +64,10 @@
         
         <div class="row">
             <button type="button" class="btn btn-primary btn-lg " id="calcular">Calcular</button>	
-    		<button type="button" class="btn btn-primary btn-lg " id="Enviar">Enviar</button>    	
+    		
+    		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" id="modalsend" data-target="#myModal">Enviar</button>
+    		
+    		  	
 			<a class="btn btn-primary btn-lg" href="#" role="button" id="limpiar">Limpiar</a>
         </div>
 
@@ -97,6 +100,25 @@
     </table>
 
 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enviar Correo</h4>
+      </div>
+      <div class="modal-body">
+                <label for="code">Correo</label>
+                <input type="text" class="form-control input-normal" id="correo" />
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary btn-lg " id="enviar">Enviar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 </div>
 

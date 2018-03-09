@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    
+	 $("#modalsend").prop('disabled', true);
 	$('#fecha').datepicker({
 		format: 'dd/mm/yyyy',
 		minViewMode: '09/03/2018'
@@ -8,16 +8,56 @@ $( document ).ready(function() {
 	
 	$('#calcular').click(function(){	
 		console.log("calcular"); 
-		table.ajax.reload();	 
+		
+		
+		setTimeout(function(){
+			table.ajax.reload();
+		  },30000)
+		
+		if(table.cells.length>0){
+			$("#modalsend").prop('disabled', false);
+		}
+		
+			 
 	});
 	$('#limpiar').click(function(){	
 		console.log("limpiar"); 
 		$('#importe').val("");
         $('#plazo').val("");
         $('#tasa').val("");
-        $('#fecha').val("");	 
+        $('#fecha').val("");
+        $("#modalsend").prop('disabled', true);
 	});
-	
+	$('#enviar').click(function(){	
+		console.log("enviar"); 
+		var correo=$('#correo').val();
+		
+		if(correo.length>0){
+			var data={	"to":correo,
+					"subject":"simulacion",
+					"text":"Adjunto la simulacion realizada gracias saludos"
+					};
+			
+			$.ajax({
+				  type: "POST",
+				  url: "./enviar",
+				  data: JSON.stringify(data),
+				  contentType: "application/json",
+				  success: function(result) {					  
+					  if(result.sEcho=="true"){
+						  $("#myModal").modal('toggle');
+					  }
+				  },
+				    error: function() {
+				    	
+				    }
+				});
+		}
+		
+		
+
+		
+	});
 	
 	var table= $('#tblcronograma').DataTable( {
     	"bJQueryUI":true,

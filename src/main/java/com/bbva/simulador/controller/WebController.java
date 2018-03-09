@@ -2,18 +2,18 @@ package com.bbva.simulador.controller;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,7 +27,7 @@ import com.bbva.simulador.service.ConsumerService;
 import com.bbva.simulador.service.EmailService;
 
 
-  
+@Scope  
 @Controller
 public class WebController {
 	
@@ -42,30 +42,62 @@ public class WebController {
 
     @Autowired
     public SimpleMailMessage template;
+    private List<Fila> listaFila;
 	
-	
-	
-    @RequestMapping(value="/",method = RequestMethod.GET)
+
+
+
+	public List<Fila> getListaFila() {
+		return listaFila;
+	}
+
+
+	public void setListaFila(List<Fila> listaFila) {
+		this.listaFila = listaFila;
+	}
+
+
+	@RequestMapping(value="/",method = RequestMethod.GET)
     public String home(){    	
         return "simulador";
     }
     
 
-    @RequestMapping(value = "/sendAttachment", method = RequestMethod.POST)
-    public String createMailWithAttachment(Model model,
-                             @ModelAttribute("mailObject") @Valid MailObject mailObject,
-                             Errors errors) {
-        if (errors.hasErrors()) {
-            return "mail/send";
-        }
-//        emailService.sendMessageWithAttachment(
-//                mailObject.getTo(),
-//                mailObject.getSubject(),
-//                mailObject.getText(),
-//                attachmentPath
-//        );
+    @SuppressWarnings("static-access")
+	@RequestMapping(value = "/enviar", method = RequestMethod.POST)
+    public @ResponseBody Contenido createMailWithAttachment(Model model,
+                            @RequestBody MailObject mailObject) {
 
-        return "redirect:/home";
+    	Contenido c=new Contenido();
+    	c.sEcho="false";
+	     //Enviar Email
+    	try {
+   	     if(this.getListaFila()!=null && this.getListaFila().size()>0){
+		     GeneratePdfReport generatePdfReport=new GeneratePdfReport();
+		     ByteArrayInputStream byteArray=generatePdfReport.simulacionReport(this.getListaFila());
+//		     MailObject mailObject =new MailObject();		     
+//		     mailObject.setSubject("Simulacion");
+//		     mailObject.setTo("alfredfis@gmail.com");
+//		     mailObject.setText("Envio la Simulacion");
+		  
+		     
+		        emailService.sendMessageWithAttachment(
+		                mailObject.getTo(),
+		                mailObject.getSubject(),
+		                mailObject.getText(),
+		                byteArray
+		        );
+	     }
+   	     c.sEcho="true";
+		} catch (Exception e) {
+			c.sEcho="false";
+		}
+    	
+    	
+
+	    return c;
+
+       
     }
     
     
@@ -95,25 +127,7 @@ public class WebController {
 		     
 		     resp.setData(consumerService.obtenerSimulacion(request2));
 		     resp.recordsTotal=(resp.getData()!=null)?resp.getData().size():0;
-		     
-		     //Enviar Email
-		     
-		     GeneratePdfReport generatePdfReport=new GeneratePdfReport();
-		     ByteArrayInputStream byteArray=generatePdfReport.simulacionReport(resp.getData());
-		     MailObject mailObject =new MailObject();
-		     
-		     mailObject.setSubject("Simulacion");
-		     mailObject.setTo("alfredfis@gmail.com");
-		     mailObject.setText("Envio la Simulacion");
-		  
-		     
-		        emailService.sendMessageWithAttachment(
-		                mailObject.getTo(),
-		                mailObject.getSubject(),
-		                mailObject.getText(),
-		                byteArray
-		        );
-		     
+		     this.setListaFila(resp.getData());
 		     
 		}	    	
         return resp;
