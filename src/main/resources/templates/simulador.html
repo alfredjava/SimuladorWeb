@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+  
+<html>
+<head>
+      <title>Silumador</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="stylesheet" href="/bootstrap-3.3.7/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="/bootstrap-3.3.7/css/datepicker.css" />
+      
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css"/>
+ 
+
+      
+     </head>
+<body>
+
+<div class="container">
+  <h1>Simulador</h1>
+	<form role="form">
+        <div class="row">
+            <div class="form-group col-xs-4">
+                <label for="code">Importe</label>
+                <input type="text" class="form-control"  id="importe"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-xs-4 ">
+                <label for="code">TEA</label>
+                <input type="text" class="form-control input-normal" id="tasa" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-4 ">
+                <label for="code">Plazo</label>
+                <input type="text" class="form-control input-normal" id="plazo" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="form-group col-xs-4 ">
+                <label for="code">Fecha</label>
+                <input type="text" class="datepicker" id="fecha" readonly="readonly"/>
+            </div>
+        </div>
+        
+         <div class="row">
+            <div class="form-group col-xs-4 ">
+                <label for="code">Periodo de Gracia</label>               
+            </div>
+        </div>
+         <div class="row">
+            <div class="form-group col-xs-4 ">             
+             <label class="radio-inline">
+		      <input type="radio" name="optradio" >Con Capitalizaci&oacute;n</input>
+		    </label>
+		    <label class="radio-inline">
+		      <input type="radio" name="optradio" >Sin Capitalizaci&oacute;n</input>
+		    </label>
+            </div>
+        </div>     
+        
+        <div class="row">
+            <button type="button" class="btn btn-primary btn-lg " id="calcular">Calcular</button>	
+    	
+    	
+		<a class="btn btn-primary btn-lg" href="#" role="button" id="cancelar">Limpiar</a>
+        </div>
+
+    </form>
+
+
+<table id="tblcronograma" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Nro Couta</th>
+                <th>fecha</th>
+                <th>interes</th>
+                <th>amortizacion</th>
+                <th>totalAmortizado</th>
+                <th>cuotaPago</th>
+                <th>capitalPendiente</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Nro Couta</th>
+                <th>fecha</th>
+                <th>interes</th>
+                <th>amortizacion</th>
+                <th>totalAmortizado</th>
+                <th>cuotaPago</th>
+                <th>capitalPendiente</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+</div>
+
+<script src="/jquery/jquery-3.2.1.min.js"></script>    
+<script src="/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+<script src="/bootstrap-3.3.7/js/bootstrap-datepicker.js"></script>
+<script src="/js/simulador.js"></script>
+</body>
+</html>
