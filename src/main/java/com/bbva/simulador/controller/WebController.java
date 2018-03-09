@@ -48,7 +48,8 @@ public class WebController {
 				&& httpRequest.getParameter("filtroFecha").length()>0)) {
 		   	 Request request2=new Request();
 		     request2.setImporte(Integer.parseInt(httpRequest.getParameter("filtroImporte")));
-		     request2.setTasa(Double.parseDouble(httpRequest.getParameter("filtroTasa")));
+		     double tasa=Double.parseDouble(httpRequest.getParameter("filtroTasa"))/100;
+		     request2.setTasa(tasa);
 		     request2.setPlazo(Integer.parseInt(httpRequest.getParameter("filtroPlazo")));
 		     request2.setFecha(httpRequest.getParameter("filtroFecha"));
 			
