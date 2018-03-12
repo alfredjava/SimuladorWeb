@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-	 $("#modalsend").prop('disabled', true);
+//	 $("#modalsend").prop('disabled', true);
 	$('#fecha').datepicker({
 		format: 'dd/mm/yyyy',
 		minViewMode: '09/03/2018'
@@ -9,14 +9,11 @@ $( document ).ready(function() {
 	$('#calcular').click(function(){	
 		console.log("calcular"); 
 		
+		table.ajax.reload();
+	
+	
+//		$("#modalsend").prop('disabled', false);
 		
-		setTimeout(function(){
-			table.ajax.reload();
-		  },30000)
-		
-		if(table.cells.length>0){
-			$("#modalsend").prop('disabled', false);
-		}
 		
 			 
 	});
@@ -26,7 +23,7 @@ $( document ).ready(function() {
         $('#plazo').val("");
         $('#tasa').val("");
         $('#fecha').val("");
-        $("#modalsend").prop('disabled', true);
+//        $("#modalsend").prop('disabled', true);
 	});
 	$('#enviar').click(function(){	
 		console.log("enviar"); 
